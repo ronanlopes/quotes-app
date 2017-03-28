@@ -14,7 +14,8 @@ export class QuotesPage implements OnInit{
 
 	constructor(
 		private navParams: NavParams,
-		private alertCtrl: AlertController
+		private alertCtrl: AlertController,
+		private quotesService: QuotesService
 	){}
 
 	// ionViewDidLoad() {
@@ -34,7 +35,7 @@ export class QuotesPage implements OnInit{
 				{
 					text: 'Yes, go ahead',
 					handler: () => {
-						this.QuotesService.addQuoteToFavorites(selectedQuote);
+						this.quotesService.addQuoteToFavorites(selectedQuote);
 					}
 				},
 				{
@@ -48,6 +49,14 @@ export class QuotesPage implements OnInit{
 		});
 
 		alert.present();
+	}
+
+	onUnfavorite(quote: Quote){
+		this.quotesService.removeQuoteFromFavorites(quote);
+	}
+
+	isFavorite(quote: Quote){
+		return this.quotesService.isQuoteFavorite(quote);
 	}
 
 }
